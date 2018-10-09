@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Bot.View.MainPage">
+    <ContentPage.Content>
+        <WebView Source="https://webchat.botframework.com/embed/LPAXamAdvBot?s=Trwj0w-Mprc.cwA.EPs.gPIxC94dRo73esUkc2zTOnkPTcyd8JArtZCqmiIGjmw"/>
+    </ContentPage.Content>
+</ContentPage>
