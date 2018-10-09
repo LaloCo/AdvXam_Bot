@@ -9,6 +9,23 @@
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
-        <WebView Source="https://webchat.botframework.com/embed/LPAXamAdvBot?s=Trwj0w-Mprc.cwA.EPs.gPIxC94dRo73esUkc2zTOnkPTcyd8JArtZCqmiIGjmw"/>
+        <Grid Margin="16"
+              BindingContext="{StaticResource vm}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <StackLayout Orientation="Horizontal"
+                         HorizontalOptions="FillAndExpand"
+                         Grid.Row="1">
+                <Entry HorizontalOptions="FillAndExpand"
+                       Text="{Binding Message, Mode=TwoWay}"/>
+                <Button Text="Send"
+                        Command="{Binding SendCommand}"
+                        TextColor="White"
+                        WidthRequest="75"
+                        BackgroundColor="#0EB1D2"/>
+            </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
