@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Net.Http;
+using System.Net.WebSockets;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -33,6 +37,8 @@ namespace Bot.ViewModel.Helpers
 
                 _Conversation = JsonConvert.DeserializeObject<Conversation>(json);
             }
+
+            ReadMessage();
         }
 
         public async void SendActivity(string message)
@@ -65,6 +71,32 @@ namespace Bot.ViewModel.Helpers
                 var obj = JObject.Parse(json);
                 string id = (string)obj.SelectToken("id");
             }
+        }
+
+        public async void ReadMessage()
+        {
+            var client = new ClientWebSocket();
+            var cts = new CancellationTokenSource();
+
+            await client.ConnectAsync(new Uri(_Conversation.StreamUrl), cts.Token);
+
+            await Task.Factory.StartNew(async () =>
+            {
+                while(true)
+                {
+                    WebSocketReceiveResult result;
+                    var message = new ArraySegment<byte>(new byte[4096]);
+                    do
+                    {
+                        result = await client.ReceiveAsync(message, cts.Token);
+                        if (result.MessageType != WebSocketMessageType.Text)
+                            break;
+                        var messageBytes = message.Skip(message.Offset).Take(result.Count).ToArray();
+                        string messageJSON = Encoding.UTF8.GetString(messageBytes);
+                    }
+                    while (!result.EndOfMessage);
+                }
+            }, cts.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default);
         }
 
         public class ChannelAccount
