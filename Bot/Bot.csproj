@@ -23,5 +23,6 @@
     <Folder Include="View\" />
     <Folder Include="ViewModel\" />
     <Folder Include="ViewModel\Helpers\" />
+    <Folder Include="View\UserControls\" />
   </ItemGroup>
 </Project>

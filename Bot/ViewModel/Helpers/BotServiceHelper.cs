@@ -92,17 +92,24 @@ namespace Bot.ViewModel.Helpers
                     do
                     {
                         result = await client.ReceiveAsync(message, cts.Token);
-                        if (result.MessageType != WebSocketMessageType.Text)
-                            break;
-                        var messageBytes = message.Skip(message.Offset).Take(result.Count).ToArray();
-                        string messageJSON = Encoding.UTF8.GetString(messageBytes);
+                        try
+                        {
+                            if (result.MessageType != WebSocketMessageType.Text)
+                                break;
+                            var messageBytes = message.Skip(message.Offset).Take(result.Count).ToArray();
+                            string messageJSON = Encoding.UTF8.GetString(messageBytes);
 
-                        BotsResponse botsResponse = JsonConvert.DeserializeObject<BotsResponse>(messageJSON);
+                            BotsResponse botsResponse = JsonConvert.DeserializeObject<BotsResponse>(messageJSON);
 
-                        var args = new BotResponseEventArgs();
-                        args.Activities = botsResponse.Activities;
+                            var args = new BotResponseEventArgs();
+                            args.Activities = botsResponse.Activities;
 
-                        MessageReceived?.Invoke(this, args);
+                            MessageReceived?.Invoke(this, args);
+                        }
+                        catch(Exception ex)
+                        {
+
+                        }
                     }
                     while (!result.EndOfMessage);
                 }
