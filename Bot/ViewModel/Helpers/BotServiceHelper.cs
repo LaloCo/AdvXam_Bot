@@ -33,7 +33,7 @@ namespace Bot.ViewModel.Helpers
             using(HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://directline.botframework.com");
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer Trwj0w-Mprc.cwA.EPs.gPIxC94dRo73esUkc2zTOnkPTcyd8JArtZCqmiIGjmw");
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer lqhwYV8T7h4.Mmk8G4LNUq7dFM_2TkxzDQHMp8eer_YLVZ6EZ9x8-cs");
 
                 var response = await client.PostAsync(endpoint, null);
                 string json = await response.Content.ReadAsStringAsync();
@@ -51,7 +51,7 @@ namespace Bot.ViewModel.Helpers
             using (HttpClient client = new HttpClient())
             {
                 client.BaseAddress = new Uri("https://directline.botframework.com");
-                client.DefaultRequestHeaders.Add("Authorization", "Bearer Trwj0w-Mprc.cwA.EPs.gPIxC94dRo73esUkc2zTOnkPTcyd8JArtZCqmiIGjmw");
+                client.DefaultRequestHeaders.Add("Authorization", "Bearer lqhwYV8T7h4.Mmk8G4LNUq7dFM_2TkxzDQHMp8eer_YLVZ6EZ9x8-cs");
 
                 Activity activity = new Activity
                 {
